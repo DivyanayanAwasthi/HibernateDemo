@@ -10,7 +10,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "badge")
 public class Badge {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long badgeId;

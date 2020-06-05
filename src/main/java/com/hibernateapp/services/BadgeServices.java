@@ -47,7 +47,11 @@ public class BadgeServices {
 	public List<Badge> findBadges(Optional<Boolean> status, Optional<String> badgeName) {
 		try {
 			List<Badge> badges = null;
-			if (badgeName.isPresent()) {
+			if (badgeName.isPresent() && status.isPresent()) {
+				logger.info("get badges for  {} badge name and {} status", badgeName.get(), status.get());
+				badges = badgeRepository.findBadgesByNameAndStatus1(badgeName.get(), status.get());
+
+			} else if (badgeName.isPresent()) {
 				logger.info("get badges for  {} badge name", badgeName.get());
 				badges = badgeRepository.findBadgesByName(badgeName.get());
 			} else if (status.isPresent()) {

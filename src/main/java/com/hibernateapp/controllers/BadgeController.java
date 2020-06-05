@@ -49,10 +49,11 @@ public class BadgeController {
 	}
 
 	@GetMapping(value = "/badge")
-	public ResponseEntity<List<Badge>> findBadges(@RequestParam("status") Optional<Boolean> status , @RequestParam("badgeName") Optional<String> badgeName) {
-		
+	public ResponseEntity<List<Badge>> findBadges(@RequestParam("status") Optional<Boolean> status,
+			@RequestParam("badgeName") Optional<String> badgeName) {
+
 		try {
-			List<Badge> badges = badgeServices.findBadges(status,badgeName);
+			List<Badge> badges = badgeServices.findBadges(status, badgeName);
 			return new ResponseEntity<List<Badge>>(badges, HttpStatus.OK);
 		} catch (Exception ex) {
 			logger.error("Exception - {}", ex);
@@ -60,4 +61,5 @@ public class BadgeController {
 
 		}
 	}
+
 }
