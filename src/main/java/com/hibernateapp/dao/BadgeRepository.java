@@ -8,15 +8,12 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.hibernateapp.pojos.Badge;
 
+public interface BadgeRepository extends JpaRepository<Badge, Long> {
 
+	@Cacheable( value = "itemCache", key = "#status")
+	@Query("FROM Badge WHERE badgestatus = ?1")
+	List<Badge> findBadgesByStatus(Boolean status);
 
-public interface BadgeRepository  extends JpaRepository<Badge,Long>{
-
-	 @Cacheable(cacheNames = "badges")
-	 @Query("FROM Badge WHERE badgestatus = ?1")
-	    List<Badge> findBadgesByStatus(Boolean status);
-	 
-	 
-	 @Query("FROM Badge WHERE badgename like %?1%")
-	    List<Badge> findBadgesByName(String badgeName);
+	@Query("FROM Badge WHERE badgename like %?1%")
+	List<Badge> findBadgesByName(String badgeName);
 }

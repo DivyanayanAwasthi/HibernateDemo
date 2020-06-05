@@ -1,5 +1,7 @@
 package com.hibernateapp.pojos;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +11,12 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "badge")
-public class Badge {
+public class Badge implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

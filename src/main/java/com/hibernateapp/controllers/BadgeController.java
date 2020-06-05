@@ -3,6 +3,10 @@ package com.hibernateapp.controllers;
 import java.util.List;
 import java.util.Optional;
 
+import javax.ws.rs.core.CacheControl;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.ResponseBuilder;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,14 +53,21 @@ public class BadgeController {
 	}
 
 	@GetMapping(value = "/badge")
-	public ResponseEntity<List<Badge>> findBadges(@RequestParam("status") Optional<Boolean> status , @RequestParam("badgeName") Optional<String> badgeName) {
-		
+	public Response findBadges(@RequestParam("status") Optional<Boolean> status,
+			@RequestParam("badgeName") Optional<String> badgeName) {
+		CacheControl cc = new CacheControl();
+		ResponseBuilder builder = null;
 		try {
-			List<Badge> badges = badgeServices.findBadges(status,badgeName);
-			return new ResponseEntity<List<Badge>>(badges, HttpStatus.OK);
+			List<Badge> badges = badgeServices.findBadges(status, badgeName);
+			cc.setMaxAge(10);
+			cc.setPrivate(true);
+			builder = Response.ok(badges);
+			
+
+			return builder.build();
 		} catch (Exception ex) {
 			logger.error("Exception - {}", ex);
-			return new ResponseEntity<List<Badge>>(HttpStatus.INTERNAL_SERVER_ERROR);
+			return Response.serverError().build();
 
 		}
 	}
