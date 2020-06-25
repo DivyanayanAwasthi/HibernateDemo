@@ -23,22 +23,12 @@ public class BadgeController {
 	@PostMapping(value = "/badges")
 	public ResponseEntity<Badge> insertBadge(@RequestBody Badge badge) {
 		try {
-			System.out.println("hello");
-		 Badge badgeResponse =badgeRepository.save(badge);
-			System.out.println("hello");
 		Badge badgeResponse =badgeRepository.save(badge);
 		return new ResponseEntity<Badge>(badgeResponse,HttpStatus.OK);
 		}
 		catch (Exception e) {
 			return new ResponseEntity<Badge>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		try {
-			 Badge badgeResponse =badgeRepository.save(badge);
-			return new ResponseEntity<Badge>(badgeResponse,HttpStatus.OK);
-			}
-			catch (Exception e) {
-				return new ResponseEntity<Badge>(HttpStatus.INTERNAL_SERVER_ERROR);
-			}
 	}
 	
 	@GetMapping(value = "/badge/{badgeid}")
