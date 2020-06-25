@@ -29,13 +29,6 @@ public class BadgeController {
 		catch (Exception e) {
 			return new ResponseEntity<Badge>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		try {
-			 Badge badgeResponse =badgeRepository.save(badge);
-			return new ResponseEntity<Badge>(badgeResponse,HttpStatus.OK);
-			}
-			catch (Exception e) {
-				return new ResponseEntity<Badge>(HttpStatus.INTERNAL_SERVER_ERROR);
-			}
 	}
 	
 	@GetMapping(value = "/badge/{badgeid}")
