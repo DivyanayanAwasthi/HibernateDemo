@@ -19,6 +19,7 @@ public class Badge {
 		return badgeId;
 	}
 
+	
 	public void setBadgeId(Long badgeId) {
 		this.badgeId = badgeId;
 	}

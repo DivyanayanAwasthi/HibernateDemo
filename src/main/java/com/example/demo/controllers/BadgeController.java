@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,21 +21,31 @@ public class BadgeController {
 	@Autowired
 	private BadgeRepository badgeRepository;
 	
-	@PostMapping(value = "/badges")
-	public ResponseEntity<Badge> insertBadge(@RequestBody Badge badge) {
-		try {
-		 Badge badgeResponse =badgeRepository.save(badge);
-		return new ResponseEntity<Badge>(badgeResponse,HttpStatus.OK);
-		}
-		catch (Exception e) {
-			return new ResponseEntity<Badge>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+//	@PostMapping(value = "/badges")
+//	public ResponseEntity<Badge> insertBadge(@RequestBody Badge badge) {
+//		try {
+//		 Badge badgeResponse =badgeRepository.save(badge);
+//		return new ResponseEntity<Badge>(badgeResponse,HttpStatus.OK);
+//		}
+//		catch (Exception e) {
+//			return new ResponseEntity<Badge>(HttpStatus.INTERNAL_SERVER_ERROR);
+//		}
+//	}
+//	
+	@GetMapping(value = "/badges")
+	public ResponseEntity<Integer> findBadgeById() {
+			
+		Integer count  = badgeRepository.count();
+		System.out.println(count);
+		
+		return new ResponseEntity<Integer>(count, HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "/badge/{badgeid}")
-	public ResponseEntity<Badge> findBadgeById(@PathVariable("badgeid") String badgeId) {
+	@GetMapping(value = "/getbadges")
+	public ResponseEntity<?> find() {
+			
+		List<Badge> badges  = badgeRepository.findEmployee();
 		
-		Optional<Badge> badge = badgeRepository.findById(Long.valueOf(badgeId));
-		return new ResponseEntity<Badge>(badge.get(),HttpStatus.OK);
+		return new ResponseEntity<>(badges, HttpStatus.OK);
 	}
 }
